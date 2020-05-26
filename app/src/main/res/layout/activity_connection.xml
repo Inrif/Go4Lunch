@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.ConnectionActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- BACKGROUND PICTURE -->
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/deje"
+            android:gravity="center"
+            android:scaleType="centerCrop"
+            android:scaleX="1.2"
+            tools:ignore="ContentDescription" />
+
+        <!-- MAIN CONTAINER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!-- LOGO GO4LUNCH and slogan -->
+
+            <ImageView
+                android:layout_width="@dimen/logo_width"
+                android:layout_height="@dimen/logo_width"
+                android:layout_marginTop="@dimen/margin_50"
+                app:srcCompat="@drawable/ic_bol"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                style="@style/text_style_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/go4lunch" />
+
+            <TextView
+                style="@style/text_style_slogan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slogan" />
+
+            <LinearLayout
+                android:id="@+id/layout_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/main_activity_email_login_button"
+                    style="@style/button_style_connexion"
+                    android:layout_width="@dimen/logo_width"
+                    android:layout_height="@dimen/button_height_45"
+                    android:background="@drawable/email_button_radius"
+                    android:drawableStart="@drawable/ic_email"
+                    android:text="@string/email" />
+
+                <Button
+                    android:id="@+id/main_activity_google_login_button"
+                    style="@style/button_style_connexion"
+                    android:layout_width="@dimen/logo_width"
+                    android:layout_height="@dimen/button_height_45"
+                    android:background="@drawable/button_google_radius_primary_color"
+                    android:drawableStart="@drawable/ic_google_plus"
+                    android:text="@string/google" />
+
+                <Button
+                    android:id="@+id/main_activity_facebook_login_button"
+                    style="@style/button_style_connexion"
+                    android:layout_width="@dimen/logo_width"
+                    android:layout_height="@dimen/button_height_45"
+                    android:background="@drawable/button_facebook_radius_primary_color"
+                    android:drawableStart="@drawable/ic_facebook"
+                    android:text="@string/facebook" />
+
+                <Button
+                    android:id="@+id/main_activity_twitter_login_button"
+                    style="@style/button_style_connexion"
+                    android:layout_width="@dimen/logo_width"
+                    android:layout_height="@dimen/button_height_45"
+                    android:background="@drawable/button_twitter_radius_primary_color"
+                    android:drawableStart="@drawable/ic_twitter"
+                    android:text="@string/twitter" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
