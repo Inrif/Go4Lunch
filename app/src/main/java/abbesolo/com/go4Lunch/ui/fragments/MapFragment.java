@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.PreferenceManager;
@@ -43,10 +44,8 @@ import java.util.List;
 import java.util.Objects;
 
 import abbesolo.com.go4Lunch.R;
-import abbesolo.com.go4Lunch.apiFirebase.WorkersHelper;
 import abbesolo.com.go4Lunch.models.Poi;
 import abbesolo.com.go4Lunch.models.Restaurant;
-import abbesolo.com.go4Lunch.models.Workers;
 import abbesolo.com.go4Lunch.ui.activity.RestaurantDetail;
 import abbesolo.com.go4Lunch.ui.viewModels.MapViewModel;
 import timber.log.Timber;
@@ -67,7 +66,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private FusedLocationProviderClient mFusedLocationClient;
     private MapViewModel mMapViewModel;
     private LatLng lastPosition;
-    private ArrayList<Workers> mWorkersArrayList;
+    private ArrayList<abbesolo.com.go4Lunch.models.Users> mUsersArrayList;
     private ListenerRegistration mListenerRegistration = null;
 
     //constructor
@@ -121,16 +120,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap.setMapStyle (MapStyleOptions.loadRawResourceStyle (Objects.requireNonNull (this.getContext ()), R.raw.maps_style));
         Timber.i ("Map ready");
 
-        final CollectionReference workersRef = WorkersHelper.getWorkersCollection ();
+        final CollectionReference workersRef = abbesolo.com.go4Lunch.firebase.UsersHelper.getWorkersCollection ();
         mListenerRegistration = workersRef.addSnapshotListener ((queryDocumentSnapshots, e) -> {
-            mWorkersArrayList = new ArrayList<> ();
+            mUsersArrayList = new ArrayList<> ();
             if (queryDocumentSnapshots != null) {
                 for (DocumentSnapshot data : Objects.requireNonNull (queryDocumentSnapshots).getDocuments ()) {
 
                     if (data.get ("placeId") != null) {
-                        Workers workers = data.toObject (Workers.class);
-                        mWorkersArrayList.add (workers);
-                        Timber.i ("snap workers : %s", mWorkersArrayList.size ());
+                        abbesolo.com.go4Lunch.models.Users users = data.toObject (abbesolo.com.go4Lunch.models.Users.class);
+                        mUsersArrayList.add (users);
+                        Timber.i ("snap users : %s", mUsersArrayList.size ());
                     }
                 }
             }
@@ -146,6 +145,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      * get user location
      */
     private void getUserLocation() {
+        if (ActivityCompat.checkSelfPermission (java.util.Objects.requireNonNull (getContext ()), android.Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission (getContext (), android.Manifest.permission.ACCESS_COARSE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mFusedLocationClient.getLastLocation ()
                 .addOnSuccessListener (Objects.requireNonNull (getActivity ()), location -> {
                     if (location != null) {
@@ -186,7 +194,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     //init map
     private void initMap() {
         Timber.d ("initMap: initializing map");
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager ().findFragmentById (R.id.map_Fragment);
+        SupportMapFragment mapFragment = ( SupportMapFragment ) getChildFragmentManager ().findFragmentById (R.id.map_Fragment);
 
         if (mapFragment == null) {
             //add option to the map
@@ -204,7 +212,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      * @param restaurants list
      */
     private void generatePoisRestaurant(ArrayList<Restaurant> restaurants) {
-        List<Poi> listPoi = mMapViewModel.generatePois (restaurants, mWorkersArrayList);
+        List<Poi> listPoi = mMapViewModel.generatePois (restaurants, mUsersArrayList);
         for (Poi p : listPoi) {
             createRestaurantsMarker (p, mGoogleMap);
             mGoogleMap.setOnMarkerClickListener (marker -> {
@@ -287,6 +295,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mGoogleMap.moveCamera (CameraUpdateFactory.newLatLngZoom (latLng, zoom));
         //set my position and enable position button
+        if (ActivityCompat.checkSelfPermission (getContext (), android.Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission (getContext (), android.Manifest.permission.ACCESS_COARSE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mGoogleMap.setMyLocationEnabled (true);
         //observe ViewModel restaurants data
         mMapViewModel.getAllRestaurants (latLng,

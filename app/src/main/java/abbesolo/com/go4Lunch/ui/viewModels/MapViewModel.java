@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abbesolo.com.go4Lunch.R;
-import abbesolo.com.go4Lunch.apiGoogleMap.RepositoryRestaurantList;
+import abbesolo.com.go4Lunch.googleMap.RepositoryRestaurantList;
 import abbesolo.com.go4Lunch.models.DetailRestaurant;
 import abbesolo.com.go4Lunch.models.Poi;
 import abbesolo.com.go4Lunch.models.Restaurant;
-import abbesolo.com.go4Lunch.models.Workers;
 import abbesolo.com.go4Lunch.utils.Utils;
 
 
@@ -25,7 +24,7 @@ import abbesolo.com.go4Lunch.utils.Utils;
 public class MapViewModel extends ViewModel {
 
     //FIELD
-    private RepositoryRestaurantList mRepositoryRestaurantList = new RepositoryRestaurantList ();
+    private final RepositoryRestaurantList mRepositoryRestaurantList = new RepositoryRestaurantList ();
 
     /**
      * generate user poi
@@ -46,13 +45,13 @@ public class MapViewModel extends ViewModel {
     /**
      * generate list Poi with restaurant list
      *
-     * @param restaurants       list
-     * @param mWorkersArrayList list workers
+     * @param restaurants     list
+     * @param mUsersArrayList list workers
      * @return list of poi
      */
-    public List<Poi> generatePois(ArrayList<Restaurant> restaurants, ArrayList<Workers> mWorkersArrayList) {
+    public List<Poi> generatePois(ArrayList<Restaurant> restaurants, ArrayList<abbesolo.com.go4Lunch.models.Users> mUsersArrayList) {
         List<Poi> pois = new ArrayList<> ();
-        List<Restaurant> restaurants1 = Utils.getChoicedRestaurants (restaurants, mWorkersArrayList);
+        List<Restaurant> restaurants1 = Utils.getChoicedRestaurants (restaurants, mUsersArrayList);
 
         for (Restaurant resto : restaurants1) {
             Poi p = new Poi (

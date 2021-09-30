@@ -3,7 +3,7 @@ package abbesolo.com.go4Lunch.base;
 
 import android.app.Application;
 
-import abbesolo.com.go4Lunch.apiGoogleMap.RestaurantService;
+import abbesolo.com.go4Lunch.googleMap.RestaurantService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

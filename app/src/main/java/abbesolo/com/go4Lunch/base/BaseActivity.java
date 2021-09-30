@@ -49,6 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.mFirebaseAuth = com.google.firebase.auth.FirebaseAuth.getInstance ();
     }
 
+
     // --------------------
     // UTILS
     // --------------------

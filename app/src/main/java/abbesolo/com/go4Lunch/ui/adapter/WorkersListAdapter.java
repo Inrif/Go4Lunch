@@ -18,7 +18,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import abbesolo.com.go4Lunch.R;
 import abbesolo.com.go4Lunch.R.color;
-import abbesolo.com.go4Lunch.models.Workers;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,14 +25,14 @@ import butterknife.ButterKnife;
 // Created by Hounsa Romuald on 2020-03-16.
 // Copyright (c) 2020 abbesolo.com.go4Lunch.ui.adapter. All rights reserved.
 //
-public class WorkersListAdapter extends FirestoreRecyclerAdapter<Workers, WorkersListAdapter.WorkersItemViewholder> {
+public class WorkersListAdapter extends FirestoreRecyclerAdapter<abbesolo.com.go4Lunch.models.Users, WorkersListAdapter.WorkersItemViewholder> {
 
 
     //FIELD
-    private workerClickListener mWorkerClickListener;
+    private final workerClickListener mWorkerClickListener;
 
     //constructor
-    public WorkersListAdapter(@NonNull FirestoreRecyclerOptions<Workers> options, workerClickListener mWorkerListener) {
+    public WorkersListAdapter(@NonNull FirestoreRecyclerOptions<abbesolo.com.go4Lunch.models.Users> options, workerClickListener mWorkerListener) {
         super (options);
         this.mWorkerClickListener = mWorkerListener;
     }
@@ -47,22 +46,22 @@ public class WorkersListAdapter extends FirestoreRecyclerAdapter<Workers, Worker
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull WorkersItemViewholder holder, int i, @NonNull Workers workers) {
+    protected void onBindViewHolder(@NonNull WorkersItemViewholder holder, int i, @NonNull abbesolo.com.go4Lunch.models.Users users) {
         Resources resource = holder.itemView.getContext ().getResources ();
         String text;
 
-        if (workers.getRestaurantName () != null) {
-            if (!workers.getRestaurantName ().trim ().equals ("")) {
-                text = workers.getName () + " " + resource.getString (R.string.is_eating_at) + workers.getRestaurantName ();
+        if (users.getRestaurantName () != null) {
+            if (!users.getRestaurantName ().trim ().equals ("")) {
+                text = users.getName () + " " + resource.getString (R.string.is_eating_at) + users.getRestaurantName ();
                 holder.mTextView.setTextColor (resource.getColor (color.secondary_text));
             } else {
-                text = workers.getName () + " " + resource.getString (R.string.hasn_t_decided);
+                text = users.getName () + " " + resource.getString (R.string.hasn_t_decided);
                 holder.mTextView.setTextColor (resource.getColor (color.color_workers));
             }
             holder.mTextView.setText (text);
 
             Glide.with (holder.mImageView.getContext ())
-                    .load (workers.getAvatarUrl ())
+                    .load (users.getAvatarUrl ())
                     .error (R.drawable.pic_logo_restaurant_400x400)
                     .apply (RequestOptions.circleCropTransform ())
                     .into (holder.mImageView);

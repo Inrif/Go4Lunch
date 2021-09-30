@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import abbesolo.com.go4Lunch.models.Restaurant;
-import abbesolo.com.go4Lunch.models.Workers;
 import abbesolo.com.go4Lunch.utils.Utils;
 
 import static junit.framework.TestCase.assertEquals;
@@ -19,7 +18,7 @@ import static junit.framework.TestCase.assertTrue;
 //
 public class UtilsTest {
 
-    private static List<Restaurant> mRestaurantsGenerate = Arrays.asList (
+    private static final List<Restaurant> mRestaurantsGenerate = Arrays.asList (
             new Restaurant (null, "le Zinc", "2 boulevard poissonnière",
                     "000", false, null, 0, 0, 2.5),
             new Restaurant (null, "La cigale", "21 place Graslin",
@@ -29,23 +28,23 @@ public class UtilsTest {
             new Restaurant (null, "Grillpizz", "place graslin",
                     "00028", false, null, 0, 0, 3)
     );
-    private static List<Workers> mWorkersGenerate = Arrays.asList (
-            new Workers ("Carole", null, "La cigale", "021",
+    private static final List<abbesolo.com.go4Lunch.models.Users> sMUsersGenerate = Arrays.asList (
+            new abbesolo.com.go4Lunch.models.Users ("Carole", null, "La cigale", "021",
 
                     "QWRfgt"),
-            new Workers ("Cyril", null, "", "", "mouyg"),
-            new Workers ("Fabrice", null, "le Zinc", "000", "QXCZS"),
-            new Workers ("Virgile", null, "La cigale", "021", "WDCXZAS")
+            new abbesolo.com.go4Lunch.models.Users ("Cyril", null, "", "", "mouyg"),
+            new abbesolo.com.go4Lunch.models.Users ("Fabrice", null, "le Zinc", "000", "QXCZS"),
+            new abbesolo.com.go4Lunch.models.Users ("Virgile", null, "La cigale", "021", "WDCXZAS")
     );
-    private ArrayList<Restaurant> mRestaurants = generatorOfRestaurant ();
-    private ArrayList<Workers> mWorkers = generatorOfWorkers ();
+    private final ArrayList<Restaurant> mRestaurants = generatorOfRestaurant ();
+    private final ArrayList<abbesolo.com.go4Lunch.models.Users> mWorkers = generatorOfWorkers ();
 
     private static ArrayList<Restaurant> generatorOfRestaurant() {
         return new ArrayList<> (mRestaurantsGenerate);
     }
 
-    private static ArrayList<Workers> generatorOfWorkers() {
-        return new ArrayList<> (mWorkersGenerate);
+    private static ArrayList<abbesolo.com.go4Lunch.models.Users> generatorOfWorkers() {
+        return new ArrayList<> (sMUsersGenerate);
     }
 
     @Test

@@ -17,7 +17,6 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.List;
 
 import abbesolo.com.go4Lunch.R;
-import abbesolo.com.go4Lunch.models.Workers;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,10 +27,10 @@ import butterknife.ButterKnife;
 public class DetailWorkerAdapter extends RecyclerView.Adapter<DetailWorkerAdapter.DetailViewHolder> {
 
     //FIELD
-    private List<Workers> mWorkers;
+    private final List<abbesolo.com.go4Lunch.models.Users> mWorkers;
 
     //construtor
-    public DetailWorkerAdapter(List<Workers> workers) {
+    public DetailWorkerAdapter(List<abbesolo.com.go4Lunch.models.Users> workers) {
         mWorkers = workers;
     }
 
@@ -45,14 +44,14 @@ public class DetailWorkerAdapter extends RecyclerView.Adapter<DetailWorkerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull DetailViewHolder holder, int position) {
-        Workers workers = mWorkers.get (position);
+        abbesolo.com.go4Lunch.models.Users users = mWorkers.get (position);
         Resources resources = holder.itemView.getResources ();
 
-        String text = workers.getName () + resources.getString (R.string.is_joining);
+        String text = users.getName () + resources.getString (R.string.is_joining);
         holder.mTextView.setText (text);
 
         Glide.with (holder.mImageView.getContext ())
-                .load (workers.getAvatarUrl ())
+                .load (users.getAvatarUrl ())
                 .error (R.drawable.pic_logo_restaurant_400x400)
                 .apply (RequestOptions.circleCropTransform ())
                 .into (holder.mImageView);

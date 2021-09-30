@@ -21,6 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <!-- MENTOR CHAT ACTIVITY -->
+        <!--        <activity android:name=".mentor_chat.MentorChatActivity"-->
+        <!--            android:label="@string/toolbar_title_mentor_chat_activity"-->
+        <!--            android:parentActivityName=".MainActivity"/>-->
+
         <activity
             android:name=".settings.activity.SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -34,11 +40,9 @@
                     android:name="com.google.android.geo.API_KEY"
                     android:value="AIzaSyDfYXOP1vSQ1ReiNxEE45o1_m4imoGd0OA" />
         -->
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -50,6 +54,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/title_activity_main2" />
@@ -67,9 +72,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.MainActivity" />
-        </activity> <!-- NOTIFICATION SERVICE -->
+        </activity>
+        <!-- NOTIFICATION SERVICE -->
         <service
-            android:name=".apiFirebase.NotificationsServices"
+            android:name=".firebase.NotificationsServices"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

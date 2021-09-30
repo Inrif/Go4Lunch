@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import abbesolo.com.go4Lunch.R;
-import abbesolo.com.go4Lunch.apiFirebase.RepositoryFirebase;
 import abbesolo.com.go4Lunch.base.BaseActivity;
+import abbesolo.com.go4Lunch.firebase.RepositoryFirebase;
 import abbesolo.com.go4Lunch.models.RestaurantFavoris;
 import abbesolo.com.go4Lunch.ui.adapter.RestaurantFavoritesAdapter;
 import butterknife.BindView;
@@ -32,7 +32,7 @@ public class FavoritesRestaurant extends BaseActivity implements RestaurantFavor
     //FIELDS
     private RecyclerView mRecyclerView;
     private RestaurantFavoritesAdapter adapter;
-    private ArrayList<RestaurantFavoris> mRestaurantFavorisList = new ArrayList<> ();
+    private final ArrayList<RestaurantFavoris> mRestaurantFavorisList = new ArrayList<> ();
 
     @Override
     public int getActivityLayout() {

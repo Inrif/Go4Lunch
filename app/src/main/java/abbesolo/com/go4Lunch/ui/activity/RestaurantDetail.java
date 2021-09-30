@@ -36,12 +36,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import abbesolo.com.go4Lunch.R;
-import abbesolo.com.go4Lunch.apiFirebase.RestaurantsFavorisHelper;
-import abbesolo.com.go4Lunch.apiFirebase.WorkersHelper;
 import abbesolo.com.go4Lunch.base.BaseActivity;
+import abbesolo.com.go4Lunch.firebase.RestaurantsFavorisHelper;
 import abbesolo.com.go4Lunch.models.DetailRestaurant;
 import abbesolo.com.go4Lunch.models.RestaurantFavoris;
-import abbesolo.com.go4Lunch.models.Workers;
 import abbesolo.com.go4Lunch.ui.adapter.DetailWorkerAdapter;
 import abbesolo.com.go4Lunch.ui.viewModels.MapViewModel;
 import abbesolo.com.go4Lunch.utils.Utils;
@@ -53,7 +51,7 @@ public class RestaurantDetail extends BaseActivity {
 
     //FIELDS
     private static final int PERMISSION_CALL = 100;
-    private static final String GOOGLE_MAP_KEY = "AIzaSyDfYXOP1vSQ1ReiNxEE45o1_m4imoGd0OA";
+
     @BindView(R.id.coordinator_detail)
     CoordinatorLayout mCoordinatorLayout;
     @BindView(R.id.toolbarDetails)
@@ -92,7 +90,7 @@ public class RestaurantDetail extends BaseActivity {
     private String websiteUrl;
     private String placeId;
     private String nameResto;
-    private ArrayList<Workers> mWorkers;
+    private ArrayList<abbesolo.com.go4Lunch.models.Users> mWorkers;
     private ArrayList<RestaurantFavoris> mRestaurantFavorises;
     private ListenerRegistration mListenerRegistration = null;
     private RestaurantFavoris mRestaurantFavoris;
@@ -126,13 +124,14 @@ public class RestaurantDetail extends BaseActivity {
         placeId = getIntent ().getStringExtra ("placeId");
         nameResto = getIntent ().getStringExtra ("restaurantName");
 
-        query = WorkersHelper.getAllWorkers ().whereEqualTo ("name",
+        query = abbesolo.com.go4Lunch.firebase.UsersHelper.getAllWorkers ().whereEqualTo ("name",
                 Objects.requireNonNull (getCurrentUser ()).getDisplayName ());
 
         getFavoriteRestaurant ();
         //ViewModel
         MapViewModel mapViewModel = ViewModelProviders.of (this).get (MapViewModel.class);
-        mapViewModel.getDetailRestaurant (placeId).observe (this, this::updateUi);
+        mapViewModel.getDetailRestaurant (placeId).observe (this,
+                this::updateUi);
 
 
     }
@@ -305,7 +304,7 @@ public class RestaurantDetail extends BaseActivity {
      * Listen the modification on workers list
      */
     private void listenChangeWorkersList() {
-        final CollectionReference workersRef = WorkersHelper.getWorkersCollection ();
+        final CollectionReference workersRef = abbesolo.com.go4Lunch.firebase.UsersHelper.getWorkersCollection ();
         mListenerRegistration = workersRef.addSnapshotListener ((queryDocumentSnapshots, e) -> {
             mWorkers = new ArrayList<> ();
             if (queryDocumentSnapshots != null) {
@@ -313,9 +312,9 @@ public class RestaurantDetail extends BaseActivity {
 
                     if (data.get ("placeId") != null && Objects.requireNonNull (data.get ("placeId")).toString ().equals (placeId)) {
 
-                        Workers workers = data.toObject (Workers.class);
-                        mWorkers.add (workers);
-                        Timber.i ("snap workers : %s", mWorkers.size ());
+                        abbesolo.com.go4Lunch.models.Users users = data.toObject (abbesolo.com.go4Lunch.models.Users.class);
+                        mWorkers.add (users);
+                        Timber.i ("snap users : %s", mWorkers.size ());
                     }
                 }
             }
@@ -370,7 +369,7 @@ public class RestaurantDetail extends BaseActivity {
      * @param isChosen  boolean to configure FAB
      */
     private void updateRestaurantChoice(String id, String restoName, String placeId, String message, boolean isChosen) {
-        WorkersHelper.updateRestaurantChoice (id, restoName, placeId);
+        abbesolo.com.go4Lunch.firebase.UsersHelper.updateRestaurantChoice (id, restoName, placeId);
         Utils.showSnackBar (this.mCoordinatorLayout, message);
         mFloatingActionButton.setImageResource (isChosen
                 ? R.drawable.ic_check_checked
@@ -464,7 +463,7 @@ public class RestaurantDetail extends BaseActivity {
      *
      * @param workers list
      */
-    private void initAdapter(ArrayList<Workers> workers) {
+    private void initAdapter(ArrayList<abbesolo.com.go4Lunch.models.Users> workers) {
         if (workers.isEmpty ()) {
             mTextNoWorker.setVisibility (View.VISIBLE);
             mRecyclerView.setVisibility (View.GONE);

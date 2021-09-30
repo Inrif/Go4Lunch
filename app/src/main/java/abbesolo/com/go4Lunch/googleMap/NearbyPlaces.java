@@ -1,4 +1,4 @@
-package abbesolo.com.go4Lunch.apiGoogleMap;
+package abbesolo.com.go4Lunch.googleMap;
 
 
 import androidx.lifecycle.LiveData;
@@ -13,7 +13,7 @@ import abbesolo.com.go4Lunch.models.Restaurant;
 
 //
 // Created by Hounsa Romuald on 2020-03-17.
-// Copyright (c) 2020 abbesolo.com.go4Lunch.apiGoogleMap. All rights reserved.
+// Copyright (c) 2020 abbesolo.com.go4Lunch.googleMap. All rights reserved.
 //
 public interface NearbyPlaces {
 

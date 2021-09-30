@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abbesolo.com.go4Lunch.models.Restaurant;
-import abbesolo.com.go4Lunch.models.Workers;
 import abbesolo.com.go4Lunch.pojos.RestaurantsResult;
 import abbesolo.com.go4Lunch.pojos.Result;
 
@@ -123,12 +122,12 @@ public abstract class Utils {
      * @param workers workers list
      * @return arrayList
      */
-    public static ArrayList<Restaurant> getChoicedRestaurants(List<Restaurant> resto, ArrayList<Workers> workers) {
+    public static ArrayList<Restaurant> getChoicedRestaurants(List<Restaurant> resto, ArrayList<abbesolo.com.go4Lunch.models.Users> workers) {
         ArrayList<Restaurant> restaurants = new ArrayList<> ();
         restaurants.clear ();
         for (Restaurant r : resto) {
             int worker = 0;
-            for (Workers w : workers) {
+            for (abbesolo.com.go4Lunch.models.Users w : workers) {
                 if (r.getPlaceId ().equalsIgnoreCase (w.getPlaceId ())) {
                     worker++;
                     r.setChoice (true);

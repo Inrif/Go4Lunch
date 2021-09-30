@@ -1,4 +1,4 @@
-package abbesolo.com.go4Lunch.apiFirebase;
+package abbesolo.com.go4Lunch.firebase;
 
 
 import android.app.NotificationChannel;
@@ -24,19 +24,18 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import abbesolo.com.go4Lunch.R;
-import abbesolo.com.go4Lunch.models.Workers;
 import abbesolo.com.go4Lunch.ui.activity.MainActivity;
 
 //
 // Created by Hounsa Romuald on 2020-03-16.
-// Copyright (c) 2020 abbesolo.com.go4Lunch.apiFirebase. All rights reserved.
+// Copyright (c) 2020 abbesolo.com.go4Lunch.firebase. All rights reserved.
 //
 public class NotificationsServices extends FirebaseMessagingService {
 
     //FIELDS
     private static final String PREF_NOTIFICATION = "notification_firebase";
     private String restaurant;
-    private ArrayList<Workers> mWorkers;
+    private ArrayList<abbesolo.com.go4Lunch.models.Users> mWorkers;
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
@@ -118,7 +117,7 @@ public class NotificationsServices extends FirebaseMessagingService {
      * get restaurant choice
      */
     private void getRestaurantUser() {
-        Query query = WorkersHelper.getAllWorkers ().whereEqualTo ("name",
+        Query query = UsersHelper.getAllWorkers ().whereEqualTo ("name",
                 Objects.requireNonNull (FirebaseAuth.getInstance ().getCurrentUser ()).getDisplayName ());
         query.get ().addOnCompleteListener (task -> {
             restaurant = "";
@@ -138,16 +137,16 @@ public class NotificationsServices extends FirebaseMessagingService {
     /**
      * get ArrayList of workers who are chosen the same restaurant
      *
-     * @return Workers ArrayList
+     * @return Users ArrayList
      */
-    private ArrayList<Workers> getRestaurantUserAndWorkersAdd() {
-        Query query = WorkersHelper.getAllWorkers ();
-        ArrayList<Workers> workers = new ArrayList<> ();
+    private ArrayList<abbesolo.com.go4Lunch.models.Users> getRestaurantUserAndWorkersAdd() {
+        Query query = UsersHelper.getAllWorkers ();
+        ArrayList<abbesolo.com.go4Lunch.models.Users> workers = new ArrayList<> ();
         query.get ().addOnCompleteListener (task -> {
             if (task.isSuccessful ()) {
                 for (QueryDocumentSnapshot data : Objects.requireNonNull (task.getResult ())) {
                     if (Objects.requireNonNull (data.get ("restaurantName")).toString ().equals (restaurant)) {
-                        Workers w = data.toObject (Workers.class);
+                        abbesolo.com.go4Lunch.models.Users w = data.toObject (abbesolo.com.go4Lunch.models.Users.class);
                         workers.add (w);
                     }
                 }

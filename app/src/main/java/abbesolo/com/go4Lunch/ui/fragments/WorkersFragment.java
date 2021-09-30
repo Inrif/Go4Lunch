@@ -21,8 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abbesolo.com.go4Lunch.R;
-import abbesolo.com.go4Lunch.apiFirebase.RepositoryFirebase;
-import abbesolo.com.go4Lunch.models.Workers;
+import abbesolo.com.go4Lunch.firebase.RepositoryFirebase;
 import abbesolo.com.go4Lunch.ui.activity.RestaurantDetail;
 import abbesolo.com.go4Lunch.ui.adapter.WorkersListAdapter;
 import abbesolo.com.go4Lunch.utils.Utils;
@@ -32,12 +31,13 @@ import butterknife.BindView;
  * A simple {@link Fragment} subclass.
  */
 public class WorkersFragment extends Fragment implements WorkersListAdapter.workerClickListener {
+
     @BindView(R.id.recyclerView_workers)
     RecyclerView mRecyclerView;
     //FIELDS
     //private RecyclerView mRecyclerView;
     private WorkersListAdapter adapter;
-    private List<Workers> mWorkers = new ArrayList<> ();
+    private final List<abbesolo.com.go4Lunch.models.Users> mWorkers = new ArrayList<> ();
 
     //constructor
     public WorkersFragment() {
@@ -50,6 +50,8 @@ public class WorkersFragment extends Fragment implements WorkersListAdapter.work
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder ()
                 .build ();
         firestore.setFirestoreSettings (settings);
+
+
     }
 
     @Override
@@ -70,8 +72,8 @@ public class WorkersFragment extends Fragment implements WorkersListAdapter.work
      */
     private void initListAdapter() {
         Query query = RepositoryFirebase.getQueryWorkers (mWorkers);
-        FirestoreRecyclerOptions<Workers> options = new FirestoreRecyclerOptions.Builder<Workers> ()
-                .setQuery (query, Workers.class)
+        FirestoreRecyclerOptions<abbesolo.com.go4Lunch.models.Users> options = new FirestoreRecyclerOptions.Builder<abbesolo.com.go4Lunch.models.Users> ()
+                .setQuery (query, abbesolo.com.go4Lunch.models.Users.class)
                 .build ();
 
         adapter = new WorkersListAdapter (options, this);

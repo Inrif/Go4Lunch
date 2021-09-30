@@ -1,4 +1,4 @@
-package abbesolo.com.go4Lunch.apiFirebase;
+package abbesolo.com.go4Lunch.firebase;
 
 
 import com.google.firebase.firestore.Query;
@@ -9,12 +9,11 @@ import java.util.Objects;
 
 import abbesolo.com.go4Lunch.R;
 import abbesolo.com.go4Lunch.models.RestaurantFavoris;
-import abbesolo.com.go4Lunch.models.Workers;
 import timber.log.Timber;
 
 //
 // Created by Hounsa Romuald on 2020-03-16.
-// Copyright (c) 2020 abbesolo.com.go4Lunch.apiFirebase. All rights reserved.
+// Copyright (c) 2020 abbesolo.com.go4Lunch.firebase. All rights reserved.
 //
 public class RepositoryFirebase {
 
@@ -24,13 +23,13 @@ public class RepositoryFirebase {
      * @param mWorkers list of workers
      * @return query for Firebase recyclerView options
      */
-    public static Query getQueryWorkers(List<Workers> mWorkers) {
-        Query query = WorkersHelper.getWorkersCollection ().orderBy ("restaurantName", Query.Direction.DESCENDING);
+    public static Query getQueryWorkers(List<abbesolo.com.go4Lunch.models.Users> mWorkers) {
+        Query query = UsersHelper.getWorkersCollection ().orderBy ("restaurantName", Query.Direction.DESCENDING);
         query.get ()
                 .addOnCompleteListener (task -> {
                     if (task.isSuccessful ()) {
                         for (QueryDocumentSnapshot document : Objects.requireNonNull (task.getResult ())) {
-                            Workers w = document.toObject (Workers.class);
+                            abbesolo.com.go4Lunch.models.Users w = document.toObject (abbesolo.com.go4Lunch.models.Users.class);
                             mWorkers.add (w);
                             Timber.d (document.getId () + " => " + document.getData ());
                         }

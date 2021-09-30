@@ -30,7 +30,6 @@ import java.util.Objects;
 
 import abbesolo.com.go4Lunch.BuildConfig;
 import abbesolo.com.go4Lunch.R;
-import abbesolo.com.go4Lunch.apiFirebase.WorkersHelper;
 import abbesolo.com.go4Lunch.base.BaseActivity;
 import abbesolo.com.go4Lunch.settings.activity.SettingsActivity;
 import abbesolo.com.go4Lunch.ui.fragments.MapFragment;
@@ -79,6 +78,7 @@ public class MainActivity extends BaseActivity {
         }
 
         user = this.getCurrentUser ();
+
         configureFragment (mFragment);
         this.configureToolBar (getString (R.string.I_m_hungry));
 
@@ -176,6 +176,8 @@ public class MainActivity extends BaseActivity {
                 this.mFragment = new WorkersFragment ();
                 configureFragment (mFragment);
                 mToolbar.setTitle (getString (R.string.workers_toolbar));
+
+
                 break;
             case R.id.logout:
                 this.signOutCurrentUser ();
@@ -289,14 +291,15 @@ public class MainActivity extends BaseActivity {
         startActivity (intent);
     }
 
+
     /**
      * get a user query to show if the user has chosen a restaurant and redirect if able
      */
     private void showMyRestaurantChoice() {
 
-        android.util.Log.e ("getCurrentUser", "not Nul");
+        //  android.util.Log.e ("getCurrentUser", "not Nul");
 
-        Query query = WorkersHelper.getAllWorkers ().whereEqualTo ("name",
+        Query query = abbesolo.com.go4Lunch.firebase.UsersHelper.getAllWorkers ().whereEqualTo ("name",
                 Objects.requireNonNull (getCurrentUser ()).getDisplayName ());
 
         query.get ().addOnCompleteListener (task -> {

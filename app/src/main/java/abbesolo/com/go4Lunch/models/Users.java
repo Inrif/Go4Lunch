@@ -4,7 +4,7 @@ package abbesolo.com.go4Lunch.models;
 // Created by Hounsa Romuald on 2020-03-16.
 // Copyright (c) 2020 abbesolo.com.go4Lunch.models. All rights reserved.
 //
-public class Workers {
+public class Users {
     // FIELDS
     private String name;
     private String avatarUrl;
@@ -13,10 +13,10 @@ public class Workers {
     private String uid;
 
     //constructors
-    public Workers() {
+    public Users() {
     }
 
-    public Workers(String name, String avatarUrl, String resto, String placeId, String uid) {
+    public Users(String name, String avatarUrl, String resto, String placeId, String uid) {
         this.name = name;
         this.avatarUrl = avatarUrl;
         this.restaurantName = resto;

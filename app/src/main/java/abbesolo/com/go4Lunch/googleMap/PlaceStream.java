@@ -1,4 +1,4 @@
-package abbesolo.com.go4Lunch.apiGoogleMap;
+package abbesolo.com.go4Lunch.googleMap;
 
 
 import java.util.Map;
@@ -15,7 +15,7 @@ import retrofit2.http.QueryMap;
 
 //
 // Created by Hounsa Romuald on 2020-03-17.
-// Copyright (c) 2020 abbesolo.com.go4Lunch.apiGoogleMap. All rights reserved.
+// Copyright (c) 2020 abbesolo.com.go4Lunch.googleMap. All rights reserved.
 //
 public class PlaceStream {
 

@@ -16,7 +16,6 @@ import java.util.Collections;
 import java.util.Objects;
 
 import abbesolo.com.go4Lunch.R;
-import abbesolo.com.go4Lunch.apiFirebase.WorkersHelper;
 import abbesolo.com.go4Lunch.base.BaseActivity;
 import abbesolo.com.go4Lunch.utils.Utils;
 import butterknife.BindView;
@@ -169,7 +168,7 @@ public class ConnectionActivity extends BaseActivity {
             String resto = "";
             String placeId = "";
             String uid = this.getCurrentUser ().getUid ();
-            WorkersHelper.createWorker (username, urlPicture, resto, placeId, uid).addOnFailureListener (this.onFailureListener ());
+            abbesolo.com.go4Lunch.firebase.UsersHelper.createWorker (username, urlPicture, resto, placeId, uid).addOnFailureListener (this.onFailureListener ());
         }
 
     }

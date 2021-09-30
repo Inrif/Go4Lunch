@@ -1,4 +1,4 @@
-package abbesolo.com.go4Lunch.apiFirebase;
+package abbesolo.com.go4Lunch.firebase;
 
 
 import com.google.android.gms.tasks.Task;
@@ -9,7 +9,7 @@ import abbesolo.com.go4Lunch.models.RestaurantFavoris;
 
 //
 // Created by Hounsa Romuald on 2020-03-16.
-// Copyright (c) 2020 abbesolo.com.go4Lunch.apiFirebase. All rights reserved.
+// Copyright (c) 2020 abbesolo.com.go4Lunch.firebase. All rights reserved.
 //
 public class RestaurantsFavorisHelper {
 
@@ -23,7 +23,7 @@ public class RestaurantsFavorisHelper {
         RestaurantFavoris restoToCreate = new RestaurantFavoris (uid, name, placeId, address, photoReference, rating);
 
         //Store RestaurantFavoris to Firestore
-        return WorkersHelper.getWorkersCollection ()
+        return UsersHelper.getWorkersCollection ()
                 .document (user)
                 .collection (COLLECTION_NAME)
                 .add (restoToCreate);
@@ -32,7 +32,7 @@ public class RestaurantsFavorisHelper {
     // --- GET ---
 
     public static Query getAllRestaurantsFromWorkers(String name) {
-        return WorkersHelper.getWorkersCollection ()
+        return UsersHelper.getWorkersCollection ()
                 .document (name)
                 .collection (COLLECTION_NAME);
     }
@@ -40,7 +40,7 @@ public class RestaurantsFavorisHelper {
     // --- DELETE ---
 
     public static void deleteRestaurant(String user, String uid) {
-        WorkersHelper.getWorkersCollection ()
+        UsersHelper.getWorkersCollection ()
                 .document (user)
                 .collection (COLLECTION_NAME)
                 .document (uid)
